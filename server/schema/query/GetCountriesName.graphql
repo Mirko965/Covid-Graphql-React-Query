@@ -1,0 +1,9 @@
+query GetCountriesName{
+    countriesName{
+        name
+    }
+}
+
+
+
+

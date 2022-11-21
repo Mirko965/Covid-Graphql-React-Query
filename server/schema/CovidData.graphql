@@ -1,0 +1,7 @@
+type CovidData{
+  _id: String,
+  country_code: String,
+  country:String,
+  name:String,
+  data:[Data]
+}

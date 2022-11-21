@@ -1,0 +1,62 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+}
+#root {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 ;
+  text-align: center;
+}
+
+.wrapper {
+  height: 100%;
+  /* max-width: 100vw; */
+  width: 60%;
+  /* max-height: 50vh; */
+  margin: 0 auto;
+}
+
+.App {
+  display: flex;
+}
+
+svg .country:hover {
+  stroke: gainsboro;
+  stroke-width: 1px;
+  cursor: pointer;
+}
+
+.mark {
+  fill: #137B80;
+}
+
+.svg{
+  background-color: beige;
+}
+
+.chart-container{
+  display: flex;
+  flex-direction: column;
+  height: 30em;
+  width: 50em;
+}
+
+.chart {
+  display: flex;
+  flex-direction: column;
+  max-height: available;
+  justify-content: space-around;
+}
+
+/*.line-chart{*/
+/*  height: 30em;*/
+/*  width: 50em;*/
+/*}*/
+
+.countries-list {
+  text-align: left;
+  height: 30em;
+  overflow: scroll;
+}

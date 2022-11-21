@@ -1,0 +1,11 @@
+query GetCountryDataPerMonths($country:String){
+    countryDataPerMonths(country: [$country]){
+        name,
+        country_code,
+        data {
+            date,
+            total_deaths,
+            total_deaths_per_million,
+        }
+    }
+}

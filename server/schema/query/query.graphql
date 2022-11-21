@@ -1,0 +1,6 @@
+type Query {
+  covidDataPerMonths(country: String):[CovidData]
+  covidData(country: [String]):[CovidData]
+  countriesName: [CountriesName]
+  countryDataPerMonthsByCountry(country: [String]):[CovidData]
+}

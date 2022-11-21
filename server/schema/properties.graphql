@@ -1,0 +1,15 @@
+type Properties {
+  country: String,
+  data: [Data],
+  array: Array
+}
+
+scalar DateAndCases
+type Array {
+  totalDeathsPerMillionArray:[DateAndCases],
+  totalCasesPerMillionArray:[DateAndCases],
+  totalVaccinationsPerHundred:[DateAndCases]
+  maxCases: Int,
+  maxDeaths: Int,
+  maxVaccination: Int
+}

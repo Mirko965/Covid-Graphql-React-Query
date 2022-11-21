@@ -1,0 +1,6 @@
+query covidDataQuery{
+    covidData(country:["Serbia","Albania"]){
+        name,
+        country_code
+    }
+}

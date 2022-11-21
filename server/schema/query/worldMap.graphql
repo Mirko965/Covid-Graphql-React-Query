@@ -1,0 +1,12 @@
+query GetWorldMap{
+    worldMap{
+        id
+        geometry {
+            type
+            coordinates
+        }
+        properties {
+            name
+        }
+    }
+}
