@@ -2,6 +2,9 @@ import * as dotenv from 'dotenv'
 dotenv.config()
 import {MongoClient} from "mongodb";
 
+const uri = 'mongodb+srv://mirko:fionfion00@cluster0.zelr3mm.mongodb.net/?retryWrites=true&w=majority'
+const client = new MongoClient(uri, {
+
 const uriLocal = process.env.MONGODB_URI_LOCAL
 const uriAtlas = process.env.MONGO_URL_ATLAS
 const uriReplica = process.env.MONGO_REPLICA

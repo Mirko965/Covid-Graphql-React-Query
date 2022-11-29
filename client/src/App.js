@@ -33,18 +33,18 @@ const App = () => {
   
   return (
     
-    <div className="App">
-      <CountriesList onChange={onChange} data={data} loading={loading} error={error}
-                     isChecked={Object.keys(isChecked)}/>
+    <div className={switches === 'chart' ? 'App display-grid' : 'App'}>
       <div className={'chart-container'}>
         <div className={'switch-button'}>
-          <button onClick={handleMap}>Map</button>
-          <button onClick={handleLineChart}>Chart</button>
+          <button onClick={handleMap} className={switches === 'map' && 'active'}>Map</button>
+          <button onClick={handleLineChart} className={switches === 'chart' && 'active'}>Chart</button>
         </div>
         {switches === 'map' && <WorldMap country={""} data={data} loading={loading} error={error}/>}
         {switches === 'chart' && <Chart data={data} loading={loading} error={error} countries={Object.keys(isChecked)}/>}
       </div>
-      <ReactQueryDevtools/>
+      {switches === 'chart' && <CountriesList onChange={onChange} data={data} loading={loading} error={error}
+      isChecked={Object.keys(isChecked)}/>}
+      {switches === 'chart' && <ReactQueryDevtools/>}
     </div>
   );
 }

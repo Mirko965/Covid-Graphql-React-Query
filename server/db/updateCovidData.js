@@ -2,6 +2,7 @@ import * as dotenv from 'dotenv'
 dotenv.config()
 import { MongoClient } from 'mongodb';
 import {lastCovidData} from "../fetchData/lastCovidData.js";
+
 import moment from "moment";
 
 const uriLocal = process.env.MONGODB_URI_LOCAL

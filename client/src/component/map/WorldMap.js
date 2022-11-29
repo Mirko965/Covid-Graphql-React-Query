@@ -114,7 +114,7 @@ export const WorldMap = ({country, data, loading, error}) => {
   return (
     <React.StrictMode>
       <div className={'map'}>
-        <svg id={'worldMap'} ref={svgRef} viewBox={`-50, 0, ${width}, ${height}`}>
+        <svg id={'worldMap'} ref={svgRef} viewBox='-300 0 1400 600'>
           <g>
             {mapData && mapData.map((feature, i) => {
               return (
@@ -160,7 +160,7 @@ export const WorldMap = ({country, data, loading, error}) => {
             })}
           </g>
         </svg>
-        <div>
+        <div className='world-map-playbttn-wrapper'>
           <p>
             {data && data.covidDataPerMonths[7].data[index].date}
           </p>
