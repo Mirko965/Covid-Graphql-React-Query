@@ -1,6 +1,7 @@
-import express from 'express';
+import express from 'express'
 import path, {join} from 'path';
 import cors from 'cors'
+import schedule from "node-schedule";
 import {graphqlHTTP} from 'express-graphql'
 import {resolvers} from './resolvers.js';
 import {addResolversToSchema} from '@graphql-tools/schema'
@@ -10,6 +11,7 @@ import {allCovidDataPerMonths} from "./db/mongoQuery/allCovidDataPerMonths.js";
 import {allCovidData} from "./db/mongoQuery/allCovidData.js";
 import {countriesName} from "./db/mongoQuery/countriesName.js";
 import {covidDataPerMonthsByCountry} from "./db/mongoQuery/covidDataPerMonthsByCountry.js";
+import {updateCovidDataPerMonths, updateCovidData} from "./db/updateCovidData.js";
 
 const __dirname = path.resolve();
 
@@ -51,3 +53,6 @@ app.use("/graphql", graphqlHTTP(
 app.listen(4000, () => {
   console.log('Server listen port 4000')
 })
+
+//schedule.scheduleJob('* */1 * * *', updateCovidDataPerMonths );
+//schedule.scheduleJob('* */1 * * *', updateCovidData );
