@@ -11,17 +11,15 @@ export const CountriesList = ({onChange, data, loading, error, isChecked}) => {
     <React.StrictMode>
       <div>
         <div className={'countries-list'}>
-          <div>
             {data && data.covidDataPerMonths.map(d => {
               
               return (
-                <p key={d.name}>
+                <div key={d.name} className='country-checkbox'>
                   {CheckBoxGroup(`${d.name}`, `${d.name}`, onChange)
                   }
-                </p>
+                </div>
               )
             })}
-          </div>
         </div>
       </div>
     </React.StrictMode>

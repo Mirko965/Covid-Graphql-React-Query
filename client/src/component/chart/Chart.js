@@ -182,19 +182,19 @@ export const Chart = ({countries, data, loading, error}) => {
     <React.StrictMode>
       <div className={'chart'}>
         <div className={'switch-button_chart'}>
-          <button onClick={lineChart}>Line Chart</button>
-          <button onClick={barChart}>Bar Chart</button>
-          <button onClick={columnChart}>Column Chart</button>
+          <button onClick={lineChart} className={switches === 'lineChart' && 'active'}>Line Chart</button>
+          <button onClick={barChart} className={switches === 'barChart' && 'active'}>Bar Chart</button>
+          <button onClick={columnChart} className={switches === 'columnChart' && 'active'}>Column Chart</button>
         </div>
         <div>
-          <div>
+          <div className='cases-dropdown-container'>
             {selectListGroup("cases", optionsList, onChangeList)}
           </div>
         </div>
-        <div className={'svg'}>
+        <div className={'svg-container'}>
           <svg
             ref={svgRef}
-            viewBox={`${-margin.left} ${-margin.bottom} ${width} ${height}`}
+            viewBox={`${-margin.left} -50 1200 600`}
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
           >

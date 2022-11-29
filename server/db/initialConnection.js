@@ -4,9 +4,15 @@ import {MongoClient} from 'mongodb';
 import moment from "moment";
 import {initialCountriesData, initialCovidData} from "./initialData.js";
 
+
+const client = new MongoClient(uri, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
 const uriLocal = process.env.MONGODB_URI_LOCAL
 const uriAtlas = process.env.MONGO_URL_ATLAS
 const uriReplica = process.env.MONGO_REPLICA
+
 
 const initialConnection = async () => {
   const client = new MongoClient(uriReplica, {
