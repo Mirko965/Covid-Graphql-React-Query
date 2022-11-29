@@ -1,6 +1,6 @@
 import {MongoClient} from "mongodb";
 
-const uri = 'mongodb://192.168.122.10:27017/?directConnection=true&serverSelectionTimeoutMS=2000'
+const uri = 'mongodb+srv://mirko:fionfion00@cluster0.zelr3mm.mongodb.net/?retryWrites=true&w=majority'
 const client = new MongoClient(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true
