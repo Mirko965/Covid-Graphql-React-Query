@@ -1,22 +1,31 @@
+import * as dotenv from 'dotenv'
+dotenv.config()
 import { MongoClient } from 'mongodb';
 import {lastCovidData} from "../fetchData/lastCovidData.js";
-const uri = 'mongodb://192.168.122.10:27017/?directConnection=true&serverSelectionTimeoutMS=2000'
+import moment from "moment";
 
-const client = new MongoClient(uri, {
+const uriLocal = process.env.MONGODB_URI_LOCAL
+const uriAtlas = process.env.MONGO_URL_ATLAS
+const uriReplica = process.env.MONGO_REPLICA
+
+const client = new MongoClient(uriLocal, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
+const client2 = new MongoClient(uriLocal, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })
 
 export const updateCovidData = async () => {
   try {
-    await client.connect()
+    await client2.connect()
     const db = await client.db('worldData')
-    const countries = db.collection('countries')
+    const countries = db.collection('covidData')
     const _lastCovidData = await lastCovidData()
-
-
+   
     for await (const countriesData of _lastCovidData) {
-      await db.collection('covidData')
+      await countries
         .updateMany(
           {$and: [{name: countriesData.name}, {"data.date": {$ne: countriesData.data.date}}]},
           {$push: {data: countriesData.data}}
@@ -26,33 +35,49 @@ export const updateCovidData = async () => {
   } catch (err) {
     console.log(err)
   } finally {
-    await  client.close()
+    await  client2.close()
     console.log('it is done')
   }
 }
-updateCovidData().catch(console.dir)
 
-const deleteLastData = async () => {
+const lastDayOfMonths   = moment().endOf('month').format('YYYY-MM-DD');
+const now = moment().subtract(1, 'day').format('YYYY-MM-DD')
+
+export const updateCovidDataPerMonths = async () => {
   try {
     await client.connect()
     const db = await client.db('worldData')
-    const covidData = db.collection('covidData')
+    const countries = db.collection('covidDataPerMonths')
     const _lastCovidData = await lastCovidData()
-
+    
     for await (const countriesData of _lastCovidData) {
-      await db.collection('covidData')
+      const deleteLastData = await countries
         .updateMany(
-          {},
-          {$pull: {data:{date:"2022-10-25"}}}
+          {"data.date": {$ne: lastDayOfMonths}},
+          {$pull: {data:{date:now}}}
         )
+      console.log('deleteLastData:',deleteLastData.modifiedCount)
     }
-  }catch(err) {
+    for await (const countriesData of _lastCovidData) {
+      const insertLastData = await countries
+        .updateMany(
+          {$and: [
+              {name: countriesData.name},
+              {"data.date": {$ne: countriesData.data.date}},
+              // {"data.date": {$ne: lastDayOfMonths}}
+            ]},
+          {$push: {data: countriesData.data}}
+        )
+      console.log('insertLastData:',insertLastData.modifiedCount)
+    }
+ 
+    
+  } catch (err) {
     console.log(err)
   } finally {
     await  client.close()
     console.log('it is done')
   }
-
 }
 
-deleteLastData().catch(console.dir)
+
